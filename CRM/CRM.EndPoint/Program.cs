@@ -1,4 +1,5 @@
-﻿using CRM.Domain.Abstractions;
+﻿using CRM.Application.Customers.Commands.CreateCustomer;
+using CRM.Domain.Abstractions;
 using CRM.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,11 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 builder.Services.AddControllers();
 //builder.Services.AddScoped<CustomerService>();
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).Assembly);
+});
 
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
